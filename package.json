@@ -2,9 +2,10 @@
   "name": "pane-toggle",
   "version": "1.0.0",
   "description": "Toggle panes of content into view.",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup --config"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/jnettik/pane-toggle/issues"
   },
-  "homepage": "https://github.com/jnettik/pane-toggle#readme"
+  "homepage": "https://github.com/jnettik/pane-toggle#readme",
+  "devDependencies": {
+    "rollup": "^4.13.2"
+  }
 }
