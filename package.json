@@ -7,7 +7,7 @@
   "scripts": {
     "prebuild": "rm -rf ./dist",
     "build": "rollup --config",
-    "build:watch": "rollup --config --watch"
+    "build:watch": "rollup --config --watch --environment NODE_ENV:development"
   },
   "repository": {
     "type": "git",
