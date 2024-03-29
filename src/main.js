@@ -1,1 +1,1 @@
-export default console.log('foooo');
+export default console.log('foooo barrr');

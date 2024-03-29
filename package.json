@@ -5,7 +5,9 @@
   "type": "module",
   "main": "src/main.js",
   "scripts": {
-    "build": "rollup --config"
+    "prebuild": "rm -rf ./dist",
+    "build": "rollup --config",
+    "build:watch": "rollup --config --watch"
   },
   "repository": {
     "type": "git",
