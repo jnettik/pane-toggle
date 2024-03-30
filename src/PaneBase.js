@@ -1,3 +1,5 @@
+import merge from 'deepmerge';
+import { defaults } from './config';
 import { validateConfig } from './utils';
 import { Button } from './ui';
 
@@ -10,7 +12,7 @@ export default class PaneBase {
       console.error(`Missing required settings for ${emptyConfig.join(', ')}.`);
     }
 
-    this.config = config;
+    this.config = merge.all([defaults, config]);
     this.paneGroups = document.querySelectorAll(config.grouping);
   }
 
@@ -34,12 +36,17 @@ export default class PaneBase {
       };
 
       trigger.innerHTML = Button(props);
+      content.setAttribute('aria-expanded', false);
     });
 
   }
 
   setupEvents(group) {
+    group.addEventListener('click', this.handleClick);
+  }
 
+  handleClick(event) {
+    console.log(event);
   }
 
 }
