@@ -1,1 +1,1 @@
-export default console.log('foooo barrr');
+export { default as PaneAccordion } from "./PaneAccordion";
