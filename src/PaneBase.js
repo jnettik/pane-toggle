@@ -32,12 +32,14 @@ export default class PaneBase {
     group.querySelectorAll(this.config.pane).forEach(pane => {
       const trigger = pane.querySelector(this.config.trigger);
       const content = pane.querySelector(this.config.content);
+      const isOpen = this.isOpen(trigger);
       const props = {
         content: trigger.innerHTML,
+        isOpen,
       };
 
       trigger.innerHTML = Button(props);
-      content.setAttribute('aria-expanded', false);
+      content.setAttribute('aria-hidden', true);
     });
   }
 
@@ -56,10 +58,14 @@ export default class PaneBase {
 
     const targetId = trigger.getAttribute('aria-controls');
     const target = trigger.querySelector(`#${targetId}`);
-    const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+    const isOpen = this.isOpen(trigger);
 
     trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
     target.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+  }
+
+  isOpen(trigger) {
+    return trigger.getAttribute('aria-expanded') === 'true';
   }
 
 }

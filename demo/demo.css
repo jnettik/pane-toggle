@@ -1,0 +1,28 @@
+main {
+  margin: 24px auto;
+  max-width: 1000px;
+}
+
+.panes {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+}
+
+.pane:not(:last-child) {
+  border-bottom: 1px solid #666;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+}
+
+.pane-title {
+  margin: 0;
+}
+
+.pane-content {
+  margin-top: 24px;
+}
+
+.pane-content[aria-hidden="true"] {
+  display: none;
+}
