@@ -12,6 +12,7 @@ export default class PaneBase {
       console.error(`Missing required settings for ${emptyConfig.join(', ')}.`);
     }
 
+    this.controller = new AbortController();
     this.config = merge.all([defaults, config]);
     this.paneGroups = document.querySelectorAll(config.grouping);
   }
@@ -23,8 +24,8 @@ export default class PaneBase {
     });
   }
 
-  destroty() {
-    // @todo: destroy instance.
+  destroy() {
+    this.controller.abort();
   }
 
   setupUi(group) {
@@ -38,15 +39,23 @@ export default class PaneBase {
       trigger.innerHTML = Button(props);
       content.setAttribute('aria-expanded', false);
     });
-
   }
 
   setupEvents(group) {
-    group.addEventListener('click', this.handleClick);
+    group.addEventListener('click', event => {
+      this.handleClick(event, group);
+      event.preventDefault();
+    }, { signal: this.controller.signal });
   }
 
-  handleClick(event) {
-    console.log(event);
+  handleClick(event, group) {
+    const trigger = event.target.closest('.pane-trigger');
+
+    if (!trigger) return;
+    if (!this.contains(trigger)) return;
+
+    const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
   }
 
 }
