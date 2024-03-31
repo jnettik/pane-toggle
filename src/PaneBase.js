@@ -52,10 +52,14 @@ export default class PaneBase {
     const trigger = event.target.closest('.pane-trigger');
 
     if (!trigger) return;
-    if (!this.contains(trigger)) return;
+    if (!group.contains(trigger)) return;
 
+    const targetId = trigger.getAttribute('aria-controls');
+    const target = trigger.querySelector(`#${targetId}`);
     const isOpen = trigger.getAttribute('aria-expanded') === 'true';
 
+    trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    target.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
   }
 
 }
