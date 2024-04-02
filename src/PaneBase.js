@@ -1,6 +1,6 @@
 import merge from 'deepmerge';
 import { defaults } from './config';
-import { validateConfig } from './utils';
+import { randomId, validateConfig } from './utils';
 import { Button } from './ui';
 
 export default class PaneBase {
@@ -30,16 +30,20 @@ export default class PaneBase {
 
   setupUi(group) {
     group.querySelectorAll(this.config.pane).forEach(pane => {
+      const id = randomId();
       const trigger = pane.querySelector(this.config.trigger);
       const content = pane.querySelector(this.config.content);
+      const contentId = content.getAttribute('id');
       const isOpen = this.isOpen(trigger);
       const props = {
         content: trigger.innerHTML,
+        controls: id,
         isOpen,
       };
 
       trigger.innerHTML = Button(props);
       content.setAttribute('aria-hidden', true);
+      content.setAttribute('id', contentId ? `${contentId}-${id}` : id);
     });
   }
 
@@ -57,7 +61,7 @@ export default class PaneBase {
     if (!group.contains(trigger)) return;
 
     const targetId = trigger.getAttribute('aria-controls');
-    const target = trigger.querySelector(`#${targetId}`);
+    const target = group.querySelector(`#${targetId}`);
     const isOpen = this.isOpen(trigger);
 
     trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
