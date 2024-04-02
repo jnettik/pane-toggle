@@ -1,5 +1,8 @@
 import PaneBase from "./PaneBase";
 
+/**
+ * Class for PaneAccordion functionality.
+ */
 export default class PaneAccordion extends PaneBase {
 
   /**

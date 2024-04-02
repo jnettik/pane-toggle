@@ -3,8 +3,17 @@ import { defaults } from './config';
 import { randomId, validateConfig } from './utils';
 import { Button } from './ui';
 
+/**
+ * Base class for Toggle Pane functionality.
+ */
 export default class PaneBase {
 
+  /**
+   * Constructor method for the PaneBase instance.
+   *
+   * @param {object} config
+   *   Configuration for the Toggle Pane instance.
+   */
   constructor(config) {
     const emptyConfig = validateConfig(config);
 
@@ -17,6 +26,9 @@ export default class PaneBase {
     this.paneGroups = document.querySelectorAll(config.grouping);
   }
 
+  /**
+   * Initialization of a ToggleBase instance.
+   */
   init() {
     this.paneGroups.forEach(group => {
       this.setupUi(group);
@@ -24,10 +36,19 @@ export default class PaneBase {
     });
   }
 
+  /**
+   * Destroy the ToggleBase instance.
+   */
   destroy() {
     this.controller.abort();
   }
 
+  /**
+   * Setup the Toggle Pane UI for a group.
+   *
+   * @param {HTMLElement} group
+   *   The group of Toggle Pane items.
+   */
   setupUi(group) {
     group.querySelectorAll(this.config.pane).forEach(pane => {
       const id = randomId();
@@ -47,6 +68,12 @@ export default class PaneBase {
     });
   }
 
+  /**
+   * Attach all the event listeners.
+   *
+   * @param {HTMLElement} group
+   *   The group of Toggle Pane items.
+   */
   setupEvents(group) {
     group.addEventListener('click', event => {
       this.handleClick(event, group);
@@ -54,6 +81,14 @@ export default class PaneBase {
     }, { signal: this.controller.signal });
   }
 
+  /**
+   * Handle the pane click.
+   *
+   * @param {Event} event
+   *   The event object.
+   * @param {HTMLElement} group
+   *   The group of Toggle Pane items.
+   */
   handleClick(event, group) {
     const trigger = event.target.closest('.pane-trigger');
 
@@ -68,6 +103,13 @@ export default class PaneBase {
     target.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
   }
 
+  /**
+   *
+   * @param {HTMLElement} trigger
+   *   A trigger element.
+   * @returns {boolean}
+   *   True or false if the trigger is currently expanded.
+   */
   isOpen(trigger) {
     return trigger.getAttribute('aria-expanded') === 'true';
   }
