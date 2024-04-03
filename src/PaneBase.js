@@ -24,6 +24,9 @@ export default class PaneBase {
     this.controller = new AbortController();
     this.config = merge.all([defaults, config]);
     this.paneGroups = document.querySelectorAll(config.grouping);
+    this.templates = {
+      button: config.buttonTempalte ?? Button,
+    };
   }
 
   /**
@@ -62,7 +65,7 @@ export default class PaneBase {
         isOpen,
       };
 
-      trigger.innerHTML = Button(props);
+      trigger.innerHTML = this.templates.button(props);
       content.setAttribute('aria-hidden', true);
       content.setAttribute('id', contentId ? `${contentId}-${id}` : id);
     });
