@@ -9,6 +9,7 @@
 <body>
   <main>
     <section class="accordions">
+      <h2>Accordions Demo</h2>
       <article class="accordion">
         <h3 class="accordion-title">Accordion Heading 1</h3>
         <div class="accordion-content">
@@ -28,6 +29,30 @@
         </div>
       </article>
     </section>
+
+    <hr/>
+
+    <section class="tabs">
+      <h2>Tabs Example</h2>
+      <article class="tab">
+        <h3 class="tab-title">Tab Heading 1</h3>
+        <div class="tab-content">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non mollis nisi. Aenean eleifend, sem at tempor molestie, odio velit bibendum nisi, aliquam consectetur nisi ipsum at est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut quis ipsum mollis, posuere dui in, ultricies tortor. Proin nibh odio, ultricies ultricies tortor eget, finibus pharetra tellus. Integer ultricies turpis quam, a venenatis ante malesuada id. Nam pharetra, neque vel bibendum pulvinar, sapien arcu dapibus tortor, vitae lobortis erat nulla dapibus diam. Duis quam nisl, ullamcorper quis semper non, pharetra a urna. Duis tincidunt efficitur nulla, condimentum hendrerit tortor aliquet vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Interdum et malesuada fames ac ante ipsum primis in faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu iaculis lectus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+        </div>
+      </article>
+      <article class="tab">
+        <h3 class="tab-title">Tab Heading 2</h3>
+        <div class="tab-content">
+          <p>Aliquam a odio ex. Phasellus vitae turpis sagittis, dignissim metus id, pellentesque lectus. Sed dictum, lorem a sollicitudin interdum, neque libero aliquam felis, at rhoncus sapien libero nec ex. Aliquam erat volutpat. Praesent ut aliquam odio, ac consectetur elit. Fusce dapibus mi et odio fermentum, et rhoncus mauris pretium. Phasellus ut imperdiet erat, nec dapibus est. Phasellus viverra ante tempor, tincidunt lacus eu, commodo enim. Aenean iaculis ultricies lectus, a mattis tortor viverra ac.</p>
+        </div>
+      </article>
+      <article class="tab">
+        <h3 class="tab-title">Tab Heading 3</h3>
+        <div class="tab-content">
+          <p>Cras at consequat velit. Curabitur aliquet mauris vel nisi feugiat, id ultricies mauris rhoncus. Proin bibendum facilisis ante id fringilla. Pellentesque condimentum, velit sit amet sagittis sollicitudin, odio mauris convallis enim, eu maximus erat risus ut ipsum. In hac habitasse platea dictumst. Integer vitae ligula scelerisque, scelerisque dolor ultricies, sollicitudin massa. Cras tristique rhoncus eros sit amet ultrices. Donec et tortor sit amet sem ultricies maximus et ac dolor. Morbi vitae massa aliquet, consequat metus sodales, semper orci. Sed eu posuere sem, vitae porta orci. Donec porttitor nulla sit amet bibendum tempus. Sed laoreet suscipit rhoncus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+        </div>
+      </article>
+    </section>
   </main>
   <script src="../dist/build.iife.js"></script>
   <script type="module">
@@ -36,6 +61,14 @@
       pane: '.accordion',
       trigger: '.accordion-title',
       content: '.accordion-content',
+      defaultOpen: 1,
+    }).init();
+
+    new PaneToggle.PaneTabs({
+      grouping: '.tabs',
+      pane: '.tab',
+      trigger: '.tab-title',
+      content: '.tab-content',
     }).init();
   </script>
 </body>

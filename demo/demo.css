@@ -26,3 +26,7 @@ main {
 .accordion-content[aria-hidden="true"] {
   display: none;
 }
+
+hr {
+  margin: 64px 0;
+}

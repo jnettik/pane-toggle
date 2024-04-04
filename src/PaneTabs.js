@@ -13,7 +13,5 @@ export default class PaneTabs extends PaneBase {
    */
   constructor(config) {
     super(config);
-
-    console.log(this);
   }
 }

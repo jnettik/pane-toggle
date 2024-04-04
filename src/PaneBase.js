@@ -53,12 +53,12 @@ export default class PaneBase {
    *   The group of Toggle Pane items.
    */
   setupUi(group) {
-    group.querySelectorAll(this.config.pane).forEach(pane => {
+    group.querySelectorAll(this.config.pane).forEach((pane, index) => {
       const id = randomId();
       const trigger = pane.querySelector(this.config.trigger);
       const content = pane.querySelector(this.config.content);
       const contentId = content.getAttribute('id');
-      const isOpen = this.isOpen(trigger);
+      const isOpen = index === this.config.defaultOpen;
       const props = {
         content: trigger.innerHTML,
         controls: id,
@@ -66,7 +66,7 @@ export default class PaneBase {
       };
 
       trigger.innerHTML = this.templates.button(props);
-      content.setAttribute('aria-hidden', true);
+      content.setAttribute('aria-hidden', !isOpen);
       content.setAttribute('id', contentId ? `${contentId}-${id}` : id);
     });
   }
