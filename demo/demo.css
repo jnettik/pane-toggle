@@ -3,26 +3,26 @@ main {
   max-width: 1000px;
 }
 
-.panes {
+.accordions {
   display: grid;
   gap: 24px;
   grid-template-columns: 1fr;
 }
 
-.pane:not(:last-child) {
+.accordion:not(:last-child) {
   border-bottom: 1px solid #666;
   margin-bottom: 24px;
   padding-bottom: 24px;
 }
 
-.pane-title {
+.accordion-title {
   margin: 0;
 }
 
-.pane-content {
+.accordion-content {
   margin-top: 24px;
 }
 
-.pane-content[aria-hidden="true"] {
+.accordion-content[aria-hidden="true"] {
   display: none;
 }
