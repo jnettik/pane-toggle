@@ -1,4 +1,6 @@
+import merge from 'deepmerge';
 import PaneBase from "./PaneBase";
+import { tabsDefaults as defaults } from './config';
 
 /**
  * Class for PaneTabs functionality.
@@ -12,6 +14,7 @@ export default class PaneTabs extends PaneBase {
    *   Configuration for the Toggle Pane instance.
    */
   constructor(config) {
-    super(config);
+    const tabsConfig = merge.all([defaults, config]);
+    super(tabsConfig);
   }
 }

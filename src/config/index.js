@@ -1,8 +1,13 @@
-export const defaults = {
+import merge from 'deepmerge';
+
+const defaults = {
   grouping: '',
   pane: '',
   trigger: '',
   content: '',
-  initialOpen: 0,
+  defaultOpen: false,
   closeAll: false,
 };
+
+export const accordionDefaults = defaults;
+export const tabsDefaults = merge.all([defaults, { defaultOpen: 0 }])

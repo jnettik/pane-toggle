@@ -1,5 +1,5 @@
 import merge from 'deepmerge';
-import { defaults } from './config';
+import { accordionDefaults as defaults } from './config';
 import { randomId, validateConfig } from './utils';
 import { Button } from './ui';
 
