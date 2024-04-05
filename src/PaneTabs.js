@@ -17,4 +17,18 @@ export default class PaneTabs extends PaneBase {
     const tabsConfig = merge.all([defaults, config]);
     super(tabsConfig);
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  setupUi(group) {
+    const { config } = this;
+    const triggers = super.setupUi(group);
+    const tabs = config.templates.tabs({ tabs: triggers });
+
+    group.innerHTML = tabs + group.innerHTML;
+
+    return triggers;
+  }
+
 }

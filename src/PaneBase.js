@@ -24,9 +24,6 @@ export default class PaneBase {
     this.controller = new AbortController();
     this.config = merge.all([defaults, config]);
     this.paneGroups = document.querySelectorAll(config.grouping);
-    this.templates = {
-      button: config.buttonTempalte ?? Button,
-    };
   }
 
   /**
@@ -51,23 +48,31 @@ export default class PaneBase {
    *
    * @param {HTMLElement} group
    *   The group of Toggle Pane items.
+   *
+   * @return {array}
+   *   Returns the created triggers.
    */
   setupUi(group) {
-    group.querySelectorAll(this.config.pane).forEach((pane, index) => {
+    const { config } = this;
+    const groups = group.querySelectorAll(config.pane);
+
+    return [...groups].map((pane, index) => {
       const id = randomId();
-      const trigger = pane.querySelector(this.config.trigger);
-      const content = pane.querySelector(this.config.content);
+      const label = pane.querySelector(config.trigger);
+      const content = pane.querySelector(config.content);
       const contentId = content.getAttribute('id');
-      const isOpen = index === this.config.defaultOpen;
-      const props = {
-        content: trigger.innerHTML,
+      const isOpen = index === config.defaultOpen;
+      const trigger = config.templates.button({
+        content: label.innerHTML,
         controls: id,
         isOpen,
-      };
+      });
 
-      trigger.innerHTML = this.templates.button(props);
+      label.innerHTML = trigger;
       content.setAttribute('aria-hidden', !isOpen);
       content.setAttribute('id', contentId ? `${contentId}-${id}` : id);
+
+      return trigger;
     });
   }
 

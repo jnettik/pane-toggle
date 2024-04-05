@@ -1,5 +1,7 @@
 const html = String.raw;
 
+const Tab = tab => html`<li class="tab-item">${tab}</li>`;
+
 /**
  * A TabList UI element.
  *
@@ -10,8 +12,6 @@ const html = String.raw;
  */
 export const TabList = ({ tabs }) => html`
   <ul class="tab-list">
-    ${tabs.map(tab => html`
-      <li class="tab-item">${tab}</li>
-    `)}
+    ${tabs.map(tab => Tab(tab))}
   </ul>
 `;
