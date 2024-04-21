@@ -1,7 +1,6 @@
 import merge from 'deepmerge';
 import { accordionDefaults as defaults } from './config';
 import { randomId, validateConfig } from './utils';
-import { Button } from './ui';
 
 /**
  * Base class for Toggle Pane functionality.
@@ -53,10 +52,8 @@ export default class PaneBase {
    *   Returns the created triggers.
    */
   setupUi(group) {
-    const { config } = this;
-    const groups = group.querySelectorAll(config.pane);
-
-    return [...groups].map((pane, index) => {
+    const { config, getPanes } = this;
+    this.getPanes(group).map((pane, index) => {
       const id = randomId();
       const label = pane.querySelector(config.trigger);
       const content = pane.querySelector(config.content);
@@ -71,8 +68,6 @@ export default class PaneBase {
       label.innerHTML = trigger;
       content.setAttribute('aria-hidden', !isOpen);
       content.setAttribute('id', contentId ? `${contentId}-${id}` : id);
-
-      return trigger;
     });
   }
 
@@ -112,7 +107,7 @@ export default class PaneBase {
   }
 
   /**
-   *
+   * Check to see if the clicked button is currently open.
    * @param {HTMLElement} trigger
    *   A trigger element.
    * @returns {boolean}
@@ -120,6 +115,21 @@ export default class PaneBase {
    */
   isOpen(trigger) {
     return trigger.getAttribute('aria-expanded') === 'true';
+  }
+
+  /**
+   * Get the panes in a grouping.
+   *
+   * @param {HTMLElement} group
+   *   The group object.
+   *
+   * @return {array}
+   *   The pane objects within the grouping.
+   */
+  getPanes(group) {
+    const { config } = this;
+    const panes = group.querySelectorAll(config.pane);
+    return [...panes];
   }
 
 }

@@ -3,6 +3,14 @@ main {
   max-width: 1000px;
 }
 
+button {
+  cursor: pointer;
+}
+
+hr {
+  margin: 64px 0;
+}
+
 .accordions {
   display: grid;
   gap: 24px;
@@ -28,6 +36,14 @@ main {
   display: none;
 }
 
-hr {
-  margin: 64px 0;
+.tab-list {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+.visually-hidden {
+  display: none;
 }

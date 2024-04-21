@@ -22,13 +22,27 @@ export default class PaneTabs extends PaneBase {
    * {@inheritdoc}
    */
   setupUi(group) {
-    const { config } = this;
-    const triggers = super.setupUi(group);
-    const tabs = config.templates.tabs({ tabs: triggers });
+    const { config, getPanes } = this;
+    const tabs = getPanes(group).map((pane, index) => {
+      const id = randomId();
+      const label = pane.querySelector(config.trigger);
+      const contentId = page.getAttribute('id');
+      const isOpen = index === 1
+      const trigger = config.templates.button({
+        content: label.innerHTML,
+        controls: id,
+        isOpen,
+      });
 
-    group.innerHTML = tabs + group.innerHTML;
+      label.setAttribute('hidden', true);
+      pane.setAttribute('aria-hidden', !isOpen);
+      pane.setAttribute('id', contentId ? `${contentId}-${id}` : id);
 
-    return triggers;
+      return trigger;
+    });
+
+    const tabsList = config.templates.tabs({tabs});
+    group.innerHTML = tabsList + group.innerHTML;
   }
 
 }
