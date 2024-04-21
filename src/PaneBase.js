@@ -52,7 +52,7 @@ export default class PaneBase {
    *   Returns the created triggers.
    */
   setupUi(group) {
-    const { config, getPanes } = this;
+    const { config } = this;
     this.getPanes(group).map((pane, index) => {
       const id = randomId();
       const label = pane.querySelector(config.trigger);
@@ -117,6 +117,22 @@ export default class PaneBase {
     return trigger.getAttribute('aria-expanded') === 'true';
   }
 
+  open(trigger) {
+    const targetId = trigger.getAttribute('aria-controls');
+    const target = document.querySelector(targetId);
+
+    trigger.setAttribute('aria-expanded', true);
+    target.setAttribute('aria-hidden', false);
+  }
+
+  close(trigger) {
+    const targetId = trigger.getAttribute('aria-controls');
+    const target = document.querySelector(targetId);
+
+    trigger.setAttribute('aria-expanded', false);
+    target.setAttribute('aria-hidden', true);
+  }
+
   /**
    * Get the panes in a grouping.
    *
@@ -130,6 +146,16 @@ export default class PaneBase {
     const { config } = this;
     const panes = group.querySelectorAll(config.pane);
     return [...panes];
+  }
+
+  /**
+   * Closes all open panes in a group.
+   *
+   * @param {HTMLElement} group
+   *   The group to close elements in.
+   */
+  closeAll(triggers) {
+    triggers.forEach(trigger => this.close(trigger));
   }
 
 }

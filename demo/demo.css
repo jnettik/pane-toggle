@@ -32,7 +32,7 @@ hr {
 }
 
 .accordion-content[aria-hidden="true"],
-.tab-content[aria-hidden="true"] {
+.tab[aria-hidden="true"] {
   display: none;
 }
 
