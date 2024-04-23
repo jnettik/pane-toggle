@@ -93,17 +93,14 @@ export default class PaneBase {
    *   The group of Toggle Pane items.
    */
   handleClick(event, group) {
+    const { config } = this;
     const trigger = event.target.closest('.pane-trigger');
 
     if (!trigger) return;
     if (!group.contains(trigger)) return;
+    if (config.closeAll) this.closeAll(group);
 
-    const targetId = trigger.getAttribute('aria-controls');
-    const target = group.querySelector(`#${targetId}`);
-    const isOpen = this.isOpen(trigger);
-
-    trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-    target.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+    this.isOpen(trigger) ? this.close(trigger) : this.open(trigger);
   }
 
   /**
@@ -119,7 +116,7 @@ export default class PaneBase {
 
   open(trigger) {
     const targetId = trigger.getAttribute('aria-controls');
-    const target = document.querySelector(targetId);
+    const target = document.getElementById(targetId);
 
     trigger.setAttribute('aria-expanded', true);
     target.setAttribute('aria-hidden', false);
@@ -127,7 +124,7 @@ export default class PaneBase {
 
   close(trigger) {
     const targetId = trigger.getAttribute('aria-controls');
-    const target = document.querySelector(targetId);
+    const target = document.getElementById(targetId);
 
     trigger.setAttribute('aria-expanded', false);
     target.setAttribute('aria-hidden', true);
@@ -144,9 +141,22 @@ export default class PaneBase {
    */
   getPanes(group) {
     const { config } = this;
-    const panes = group.querySelectorAll(config.pane);
-    return [...panes];
+    return [...group.querySelectorAll(config.pane)];
   }
+
+  /**
+   * Get the triggers in a grouping.
+   *
+   * @param {HTMLElement} group
+   *   The group object.
+   *
+   * @return {array}
+   *   The trigger objects within the grouping.
+   */
+    getTriggers(group) {
+      const { config } = this;
+      return [...group.querySelectorAll('.pane-trigger')];
+    }
 
   /**
    * Closes all open panes in a group.
@@ -154,7 +164,9 @@ export default class PaneBase {
    * @param {HTMLElement} group
    *   The group to close elements in.
    */
-  closeAll(triggers) {
+  closeAll(group) {
+    const triggers = this.getTriggers(group);
+    console.log(triggers);
     triggers.forEach(trigger => this.close(trigger));
   }
 

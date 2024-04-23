@@ -7,7 +7,7 @@ const defaults = {
   trigger: '',
   content: '',
   defaultOpen: false,
-  closeAll: false,
+  closeAll: true,
   templates: {
     button: Button,
   },
