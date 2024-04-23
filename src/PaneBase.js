@@ -100,7 +100,8 @@ export default class PaneBase {
     if (!group.contains(trigger)) return;
     if (config.closeAll) this.closeAll(group);
 
-    this.isOpen(trigger) ? this.close(trigger) : this.open(trigger);
+    const isOpen = this.isOpen(trigger);
+    this.toggle(trigger, !isOpen);
   }
 
   /**
@@ -114,20 +115,12 @@ export default class PaneBase {
     return trigger.getAttribute('aria-expanded') === 'true';
   }
 
-  open(trigger) {
+  toggle(trigger, state) {
     const targetId = trigger.getAttribute('aria-controls');
     const target = document.getElementById(targetId);
 
-    trigger.setAttribute('aria-expanded', true);
-    target.setAttribute('aria-hidden', false);
-  }
-
-  close(trigger) {
-    const targetId = trigger.getAttribute('aria-controls');
-    const target = document.getElementById(targetId);
-
-    trigger.setAttribute('aria-expanded', false);
-    target.setAttribute('aria-hidden', true);
+    trigger.setAttribute('aria-expanded', state);
+    target.setAttribute('aria-hidden', !state);
   }
 
   /**
@@ -167,7 +160,7 @@ export default class PaneBase {
   closeAll(group) {
     const triggers = this.getTriggers(group);
     console.log(triggers);
-    triggers.forEach(trigger => this.close(trigger));
+    triggers.forEach(trigger => this.toggle(trigger, false));
   }
 
 }
