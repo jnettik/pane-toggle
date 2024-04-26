@@ -1,5 +1,5 @@
 import merge from 'deepmerge';
-import { accordionDefaults as defaults } from './config';
+import { accordionDefaults as defaultConfig } from './config';
 import { randomId, validateConfig } from './utils';
 
 /**
@@ -21,7 +21,7 @@ export default class PaneBase {
     }
 
     this.controller = new AbortController();
-    this.config = merge.all([defaults, config]);
+    this.config = merge.all([defaultConfig, config]);
     this.paneGroups = document.querySelectorAll(config.grouping);
   }
 

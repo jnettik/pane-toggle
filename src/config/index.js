@@ -20,3 +20,7 @@ export const tabsDefaults = merge.all([defaults, {
     tabs: TabList,
   },
 }]);
+
+export const switcherDefaults = {
+  breakpoints: [],
+};

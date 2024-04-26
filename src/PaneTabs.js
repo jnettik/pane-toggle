@@ -1,6 +1,6 @@
 import merge from 'deepmerge';
 import PaneBase from "./PaneBase";
-import { tabsDefaults as defaults } from './config';
+import { tabsDefaults as defaultConfig } from './config';
 import { randomId } from './utils';
 
 /**
@@ -15,7 +15,7 @@ export default class PaneTabs extends PaneBase {
    *   Configuration for the Toggle Pane instance.
    */
   constructor(config) {
-    const tabsConfig = merge.all([defaults, config]);
+    const tabsConfig = merge.all([defaultConfig, config]);
     super(tabsConfig);
   }
 
